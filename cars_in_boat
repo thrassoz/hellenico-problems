@@ -1,0 +1,38 @@
+#include<iostream>
+#include<fstream>
+#include<stack>
+#include<string>
+#include<algorithm>
+using namespace std;
+
+int main(){
+ int N,i,x,y,j,r;
+ stack<string> stk;
+ string name;
+ ifstream fin("boat.in");
+ ofstream fout("boat.out");
+ fin>>N;
+ for(i=1;i<=N;i++){
+    fin>>x>>y;
+    for(j=1;j<=x;j++){
+        stk.pop();
+    }
+    for(r=1;r<=y;r++){
+        fin>>name;
+        stk.push(name);
+    }
+ }
+ int sz=stk.size();
+ string A[sz];
+ int z;
+ for(z=0;z<sz;z++){
+  A[z]=stk.top();
+  stk.pop();
+  }
+  sort(A,A+sz);
+ for(i=0;i<sz;i++){
+    fout<<A[i]<<endl;
+ }
+ return 0;
+}
+
