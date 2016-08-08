@@ -1,0 +1,40 @@
+#include <iostream>
+#include<cmath>
+#include<fstream>
+using namespace std;
+int main()
+{
+    int N, i, j, k, l;
+    bool prime=true;
+    bool prime1=true;
+    ifstream fin("goldbach.in");
+    ofstream fout("goldbach.out");
+    do
+    {
+        fin>>N;
+    }
+    while (N % 2 != 0 && N>2 && N<=1000000);
+    for (i=2 ;i<N ;i++)
+    {
+        prime = true;
+        for (k=2 ;k<=sqrt(i);k++)
+            if (i % k == 0)
+                prime = false;
+        if (prime)
+        {
+            for (j=2; j<N; j++)
+            {
+                prime1 =true;
+                for (l=2; l<=sqrt(j); l++)
+                    if(j % l == 0)
+                        prime1 = false;
+                if (prime1)
+                    if (i + j == N)
+                    {
+                      fout<<i<<" "<<j<<endl;
+                       return 0;
+                    }
+            }
+        }
+    }
+}
