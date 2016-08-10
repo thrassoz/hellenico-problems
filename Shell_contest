@@ -1,0 +1,43 @@
+#include<iostream>
+#include<fstream>
+using namespace std;
+int pin[1000][1000];
+int visited=0;
+bool isfree[1000];
+//int poleis[1000];
+
+int max_shells(int pin[1000][1000], int line, int n) {
+    int max,j,maxj;
+    max=0;
+    for (j=1;j<=n;j++) {
+        if (pin[line][j]>max && j!=line && isfree[j]) { max=pin[line][j]; maxj=j; }
+    }
+    isfree[maxj]=false;
+    visited++;
+    return maxj;
+}
+
+int main(){
+  int N,M,A,B,C,i,j,r,from,cost=0,newi;
+
+  ifstream fin("contest.in");
+  ofstream fout("contest.out");
+   fin>>N;
+
+   for(i=1;i<=N-1;i++){
+     fin>>A>>B>>C;
+     pin[A][B]=C;
+     isfree[i]=true;
+    }
+  from=1;
+  i=from; isfree[from]=false;
+  do{
+    newi=max_shells(pin, i, N);
+        cost = cost+pin[i][newi];
+        //poleis[visited]=i;
+        i = newi;
+
+    }while(visited<=N);
+    fout<<cost<<endl;
+  return 0;
+}
